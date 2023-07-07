@@ -3,16 +3,70 @@ const Joi = require("joi"); // для перевірки баді при зап�
 require("dotenv").config();
 const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// схемы Joi для score
-const addScoreSchema = Joi.object({
-  score: Joi.number().required(),
-  date: Joi.string().required(),
+// схемы Joi для car
+const addCarSchema = Joi.object({
+  model: Joi.string().required(),
+  type: Joi.string().required(),
+  transmission: Joi.string().required(),
+  mileage: Joi.number().required(),
+  power: Joi.number().required(),
+  tel: Joi.string().required(),
+  year: Joi.number().required(),
+  color: Joi.string().required(),
+  fueltype: Joi.string().required(),
+  city: Joi.string().required(),
+  email: Joi.string().required(),
+  price: Joi.number().required(),
 });
 
-// схема mongoose для scores
-const scoreSchema = new Schema(
+// схема mongoose для cars
+const carSchema = new Schema(
   {
-    score: {
+    model: {
+      type: Number,
+      required: true,
+    },
+    type: {
+      type: Number,
+      required: true,
+    },
+    transmission: {
+      type: Number,
+      required: true,
+    },
+    mileage: {
+      type: Number,
+      required: true,
+    },
+    power: {
+      type: Number,
+      required: true,
+    },
+    tel: {
+      type: Number,
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
+    color: {
+      type: Number,
+      required: true,
+    },
+    fueltype: {
+      type: Number,
+      required: true,
+    },
+    city: {
+      type: Number,
+      required: true,
+    },
+    email: {
+      type: Number,
+      required: true,
+    },
+    price: {
       type: Number,
       required: true,
     },
@@ -73,6 +127,6 @@ module.exports = {
   userSchema,
   registerSchema,
   loginSchema,
-  scoreSchema,
-  addScoreSchema,
+  carSchema,
+  addCarSchema,
 };

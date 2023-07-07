@@ -1,26 +1,18 @@
 const HttpError = require("./HttpError");
 
 const {
-  addContactsSchema,
-  patchContactsFavoriteSchema,
-  contactSchema,
-  scoreSchema,
+  carSchema,
   userSchema,
-  emailSchema,
   registerSchema,
   loginSchema,
-  addScoreSchema,
+  addCarSchema,
 } = require("./schemas");
 
 module.exports = {
   HttpError,
-  addContactsSchema,
-  patchContactsFavoriteSchema,
-  scoreSchema,
-  addScoreSchema,
-  contactSchema,
+  carSchema,
+  addCarSchema,
   userSchema,
-  emailSchema,
   registerSchema,
   loginSchema,
 };
