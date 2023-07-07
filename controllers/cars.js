@@ -1,7 +1,7 @@
 const Score = require("../models/score");
 const { HttpError, addScoreSchema } = require("../helpers");
 
-const getAllScores = async (req, res, next) => {
+const getAllCars = async (req, res, next) => {
   try {
     const result = await Score.find().sort("-date").populate("owner", "name");
     res.status(200).json({
@@ -12,7 +12,7 @@ const getAllScores = async (req, res, next) => {
   }
 };
 
-const getUserScores = async (req, res, next) => {
+const getUserCars = async (req, res, next) => {
   const { _id: owner } = req.user;
 
   try {
@@ -27,7 +27,7 @@ const getUserScores = async (req, res, next) => {
   }
 };
 
-const addScore = async (req, res, next) => {
+const addCar = async (req, res, next) => {
   const { _id: owner } = req.user;
 
   try {
@@ -45,7 +45,7 @@ const addScore = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllScores,
-  addScore,
-  getUserScores,
+  getAllCars,
+  addCar,
+  getUserCars,
 };

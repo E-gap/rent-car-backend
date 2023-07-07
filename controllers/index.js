@@ -1,13 +1,13 @@
 const { userRegister, userLogin, userCurrent, userLogout } = require("./users");
 
-const { getAllScores, addScore, getUserScores } = require("./scores");
+const { getAllCars, addCar, getUserCars } = require("./cars");
 
 module.exports = {
   userRegister,
   userLogin,
   userCurrent,
   userLogout,
-  getAllScores,
-  addScore,
-  getUserScores,
+  getAllCars,
+  addCar,
+  getUserCars,
 };

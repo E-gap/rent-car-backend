@@ -6,10 +6,10 @@ const { authenticate } = require("../../middlewares");
 
 const router = express.Router();
 
-router.get("/", authenticate, ctrl.getAllScores);
+router.get("/", authenticate, ctrl.getAllCars);
 
-router.get("/user", authenticate, ctrl.getUserScores);
+router.get("/user", authenticate, ctrl.getUserCars);
 
-router.post("/", authenticate, ctrl.addScore);
+router.post("/", authenticate, ctrl.addCar);
 
 module.exports = router;
