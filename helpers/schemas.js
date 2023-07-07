@@ -17,21 +17,22 @@ const addCarSchema = Joi.object({
   city: Joi.string().required(),
   email: Joi.string().required(),
   price: Joi.number().required(),
+  date: Joi.number().required(),
 });
 
 // схема mongoose для cars
 const carSchema = new Schema(
   {
     model: {
-      type: Number,
+      type: String,
       required: true,
     },
     type: {
-      type: Number,
+      type: String,
       required: true,
     },
     transmission: {
-      type: Number,
+      type: String,
       required: true,
     },
     mileage: {
@@ -43,7 +44,7 @@ const carSchema = new Schema(
       required: true,
     },
     tel: {
-      type: Number,
+      type: String,
       required: true,
     },
     year: {
@@ -51,19 +52,19 @@ const carSchema = new Schema(
       required: true,
     },
     color: {
-      type: Number,
+      type: String,
       required: true,
     },
     fueltype: {
-      type: Number,
+      type: String,
       required: true,
     },
     city: {
-      type: Number,
+      type: String,
       required: true,
     },
     email: {
-      type: Number,
+      type: String,
       required: true,
     },
     price: {
@@ -71,7 +72,7 @@ const carSchema = new Schema(
       required: true,
     },
     date: {
-      type: String,
+      type: Number,
       required: true,
     },
     owner: {

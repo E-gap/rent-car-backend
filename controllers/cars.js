@@ -1,5 +1,5 @@
 const Car = require("../models/car");
-const { HttpError, addScoreSchema } = require("../helpers");
+const { HttpError, addCarSchema } = require("../helpers");
 
 const getAllCars = async (req, res, next) => {
   try {
@@ -31,11 +31,11 @@ const addCar = async (req, res, next) => {
   const { _id: owner } = req.user;
 
   try {
-    const { error } = addScoreSchema.validate(req.body);
+    const { error } = addCarSchema.validate(req.body);
     if (error) {
       throw HttpError(404, "missing required name field");
     }
-
+    console.log(req.body);
     const result = await Car.create({ ...req.body, owner });
     console.log(result);
     res.status(201).json({ data: result });
