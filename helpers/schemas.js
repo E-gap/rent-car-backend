@@ -120,6 +120,7 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    favorites: [String],
   },
   { versionKey: false, timestamps: true }
 );

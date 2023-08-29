@@ -6,7 +6,7 @@ const { authenticate } = require("../../middlewares");
 
 const router = express.Router();
 
-router.get("/", authenticate, ctrl.getAllCars);
+router.get("/", ctrl.getAllCars);
 
 router.get("/user", authenticate, ctrl.getUserCars);
 
