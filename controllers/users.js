@@ -107,14 +107,28 @@ const userLogout = async (req, res, next) => {
   }
 };
 
-const userAddFavorite = async (req, res, next) => {
+const userChangeFavorite = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    console.log(req);
+    const { carId } = req.body;
 
-    await User.findByIdAndUpdate(_id, { token: "" });
+    const existUser = await User.findById(_id);
 
-    res.json();
+    const isCarFavorite = existUser.favorites.find((item) => item === carId);
+
+    let newFavorites = [];
+
+    if (!isCarFavorite) {
+      newFavorites = [...existUser.favorites, carId];
+    } else {
+      newFavorites = existUser.favorites.filter((item) => item !== carId);
+    }
+
+    await User.findByIdAndUpdate(_id, { favorites: newFavorites });
+
+    res.status(201).json({
+      favorites: newFavorites,
+    });
   } catch (error) {
     next(error);
   }
@@ -125,5 +139,5 @@ module.exports = {
   userLogin,
   userCurrent,
   userLogout,
-  userAddFavorite,
+  userChangeFavorite,
 };

@@ -3,7 +3,7 @@ const {
   userLogin,
   userCurrent,
   userLogout,
-  userAddFavorite,
+  userChangeFavorite,
 } = require("./users");
 
 const { getAllCars, addCar, getUserCars } = require("./cars");
@@ -13,7 +13,7 @@ module.exports = {
   userLogin,
   userCurrent,
   userLogout,
-  userAddFavorite,
+  userChangeFavorite,
   getAllCars,
   addCar,
   getUserCars,

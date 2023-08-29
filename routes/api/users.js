@@ -13,7 +13,7 @@ router.post("/login", ctrl.userLogin);
 
 router.post("/logout", authenticate, ctrl.userLogout);
 
-router.put("/addFavorite", authenticate, ctrl.userAddfavorite);
+router.put("/changeFavorite", authenticate, ctrl.userChangeFavorite);
 
 router.get("/current", authenticate, ctrl.userCurrent);
 
