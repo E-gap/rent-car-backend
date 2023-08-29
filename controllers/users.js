@@ -78,6 +78,7 @@ const userLogin = async (req, res, next) => {
     res.json({
       token,
       user: {
+        id: userExist._id,
         email: userExist.email,
         name: userExist.name,
         token,
