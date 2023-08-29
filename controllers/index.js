@@ -1,4 +1,10 @@
-const { userRegister, userLogin, userCurrent, userLogout } = require("./users");
+const {
+  userRegister,
+  userLogin,
+  userCurrent,
+  userLogout,
+  userAddFavorite,
+} = require("./users");
 
 const { getAllCars, addCar, getUserCars } = require("./cars");
 
@@ -7,6 +13,7 @@ module.exports = {
   userLogin,
   userCurrent,
   userLogout,
+  userAddFavorite,
   getAllCars,
   addCar,
   getUserCars,

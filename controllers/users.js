@@ -77,11 +77,11 @@ const userLogin = async (req, res, next) => {
 
     res.json({
       token,
+      favorites: userExist.favorites,
       user: {
         email: userExist.email,
         name: userExist.name,
         token,
-        favorites: userExist.favorites,
       },
     });
   } catch (error) {
@@ -107,9 +107,23 @@ const userLogout = async (req, res, next) => {
   }
 };
 
+const userAddFavorite = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    console.log(req);
+
+    await User.findByIdAndUpdate(_id, { token: "" });
+
+    res.json();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   userRegister,
   userLogin,
   userCurrent,
   userLogout,
+  userAddFavorite,
 };
