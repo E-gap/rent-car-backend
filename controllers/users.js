@@ -81,6 +81,7 @@ const userLogin = async (req, res, next) => {
         email: userExist.email,
         name: userExist.name,
         token,
+        favorites: userExist.favorites,
       },
     });
   } catch (error) {
