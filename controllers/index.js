@@ -6,7 +6,7 @@ const {
   userChangeFavorite,
 } = require("./users");
 
-const { getAllCars, addCar, getUserCars } = require("./cars");
+const { getAllCars, addCar, getUserCars, getFavoriteCars } = require("./cars");
 
 module.exports = {
   userRegister,
@@ -17,4 +17,5 @@ module.exports = {
   getAllCars,
   addCar,
   getUserCars,
+  getFavoriteCars,
 };
