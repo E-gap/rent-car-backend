@@ -90,10 +90,11 @@ const userLogin = async (req, res, next) => {
 };
 
 const userCurrent = (req, res, next) => {
-  const { email, name } = req.user;
+  const { email, name, favorites } = req.user;
 
   res.status(200).json({
     user: { email, name },
+    favorites,
   });
 };
 
