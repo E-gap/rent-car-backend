@@ -46,6 +46,7 @@ const getUserCars = async (req, res, next) => {
     const result = await Car.find({ owner: owner })
       .sort("-date")
       .populate("owner", "name");
+
     res.status(200).json({
       data: result,
     });
