@@ -63,10 +63,32 @@ const addCar = async (req, res, next) => {
     if (error) {
       throw HttpError(404, "missing required name field");
     }
-    console.log(req.body);
     const result = await Car.create({ ...req.body, owner });
-    console.log(result);
     res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteCar = async (req, res, next) => {
+  const { _id: user } = req.user;
+  const { carId } = req.params;
+
+  try {
+    const car = await Car.findById(carId);
+
+    if (car.owner.toString() === user.toString()) {
+      const deletedCar = await Car.findByIdAndRemove(carId);
+      if (!deletedCar) {
+        throw HttpError(404, "not found");
+      }
+    } else {
+      throw HttpError(404, "you can not delete this item");
+    }
+    const carsAfterDelete = await Car.find()
+      .sort("-date")
+      .populate("owner", "name");
+    res.status(200).json({ data: carsAfterDelete });
   } catch (error) {
     next(error);
   }
@@ -77,4 +99,5 @@ module.exports = {
   addCar,
   getUserCars,
   getFavoriteCars,
+  deleteCar,
 };
