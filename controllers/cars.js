@@ -13,6 +13,18 @@ const getAllCars = async (req, res, next) => {
   }
 };
 
+const getOneCar = async (req, res, next) => {
+  const { carId } = req.params;
+  try {
+    const result = await Car.findById(carId);
+    res.status(200).json({
+      data: [result],
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getFavoriteCars = async (req, res, next) => {
   const { _id: owner } = req.user;
 
@@ -100,4 +112,5 @@ module.exports = {
   getUserCars,
   getFavoriteCars,
   deleteCar,
+  getOneCar,
 };

@@ -12,6 +12,7 @@ const {
   getUserCars,
   getFavoriteCars,
   deleteCar,
+  getOneCar,
 } = require("./cars");
 
 module.exports = {
@@ -25,4 +26,5 @@ module.exports = {
   getUserCars,
   getFavoriteCars,
   deleteCar,
+  getOneCar,
 };

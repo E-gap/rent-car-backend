@@ -16,4 +16,6 @@ router.post("/", authenticate, ctrl.addCar);
 
 router.delete("/:carId", authenticate, ctrl.deleteCar);
 
+router.get("/:carId", ctrl.getOneCar);
+
 module.exports = router;
