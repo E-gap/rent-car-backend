@@ -18,6 +18,7 @@ const addCarSchema = Joi.object({
   email: Joi.string().required(),
   price: Joi.number().required(),
   date: Joi.number().required(),
+  description: Joi.string().required(),
 });
 
 // схема mongoose для cars
@@ -69,6 +70,10 @@ const carSchema = new Schema(
     },
     price: {
       type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
       required: true,
     },
     date: {
