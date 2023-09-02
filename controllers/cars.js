@@ -63,6 +63,7 @@ const getUserCars = async (req, res, next) => {
 
     res.status(200).json({
       data: result,
+      status: "OK",
     });
   } catch (error) {
     next(error);
