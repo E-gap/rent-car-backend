@@ -7,6 +7,7 @@ const getAllCars = async (req, res, next) => {
     const result = await Car.find().sort("-date").populate("owner", "name");
     res.status(200).json({
       data: result,
+      status: "OK",
     });
   } catch (error) {
     next(error);
@@ -19,6 +20,7 @@ const getOneCar = async (req, res, next) => {
     const result = await Car.findById(carId);
     res.status(200).json({
       data: [result],
+      status: "OK",
     });
   } catch (error) {
     next(error);
