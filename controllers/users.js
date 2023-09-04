@@ -43,6 +43,7 @@ const userRegister = async (req, res, next) => {
         email: newUser.email,
         name: newUser.name,
         token,
+        userId: newUser._id,
       },
     });
   } catch (error) {
@@ -82,6 +83,7 @@ const userLogin = async (req, res, next) => {
         email: userExist.email,
         name: userExist.name,
         token,
+        userId: userExist._id,
       },
     });
   } catch (error) {
@@ -90,11 +92,12 @@ const userLogin = async (req, res, next) => {
 };
 
 const userCurrent = (req, res, next) => {
-  const { email, name, favorites } = req.user;
+  const { email, name, favorites, _id } = req.user;
 
   res.status(200).json({
     user: { email, name },
     favorites,
+    userId: _id,
   });
 };
 
