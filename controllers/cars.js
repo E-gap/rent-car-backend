@@ -47,6 +47,7 @@ const getFavoriteCars = async (req, res, next) => {
 
     res.status(200).json({
       data: favoritesByUser,
+      status: "OK",
     });
   } catch (error) {
     next(error);
