@@ -86,6 +86,28 @@ const addCar = async (req, res, next) => {
   }
 };
 
+const changeCar = async (req, res, next) => {
+  // const { _id: owner } = req.user;
+  const { carId } = req.params;
+  console.log(carId);
+  console.log(req.body);
+
+  try {
+    const { error } = addCarSchema.validate(req.body);
+    if (error) {
+      throw HttpError(404, "missing required name field");
+    }
+
+    // const result = await Car.create({ ...req.body, owner });
+    const result = await Car.findByIdAndUpdate(carId, { ...req.body });
+    // const result = await Car.findById(carId);
+    console.log(result);
+    res.status(201).json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteCar = async (req, res, next) => {
   const { _id: user } = req.user;
   const { carId } = req.params;
@@ -117,4 +139,5 @@ module.exports = {
   getFavoriteCars,
   deleteCar,
   getOneCar,
+  changeCar,
 };

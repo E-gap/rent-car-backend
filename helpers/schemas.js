@@ -17,7 +17,7 @@ const addCarSchema = Joi.object({
   city: Joi.string().required(),
   email: Joi.string().required(),
   price: Joi.number().required(),
-  date: Joi.number().required(),
+  date: Joi.number(),
   description: Joi.any(),
 });
 

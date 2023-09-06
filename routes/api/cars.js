@@ -14,6 +14,8 @@ router.get("/user", authenticate, ctrl.getUserCars);
 
 router.post("/", authenticate, ctrl.addCar);
 
+router.patch("/:carId", authenticate, ctrl.changeCar);
+
 router.delete("/:carId", authenticate, ctrl.deleteCar);
 
 router.get("/:carId", ctrl.getOneCar);
