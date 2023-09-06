@@ -4,6 +4,7 @@ const {
   carSchema,
   userSchema,
   registerSchema,
+  updateUserSchema,
   loginSchema,
   addCarSchema,
 } = require("./schemas");
@@ -15,4 +16,5 @@ module.exports = {
   userSchema,
   registerSchema,
   loginSchema,
+  updateUserSchema,
 };

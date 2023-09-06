@@ -9,6 +9,8 @@ const ctrl = require("../../controllers");
 
 router.post("/register", ctrl.userRegister);
 
+router.patch("/:userId", ctrl.userUpdate);
+
 router.post("/login", ctrl.userLogin);
 
 router.post("/logout", authenticate, ctrl.userLogout);

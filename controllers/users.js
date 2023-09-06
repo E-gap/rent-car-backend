@@ -6,7 +6,12 @@ const { SECRET_KEY } = process.env;
 
 const User = require("../models/user");
 
-const { HttpError, registerSchema, loginSchema } = require("../helpers");
+const {
+  HttpError,
+  registerSchema,
+  updateUserSchema,
+  loginSchema,
+} = require("../helpers");
 
 const userRegister = async (req, res, next) => {
   try {
@@ -46,6 +51,29 @@ const userRegister = async (req, res, next) => {
         userId: newUser._id,
       },
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const userUpdate = async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+    const { error } = updateUserSchema.validate(req.body);
+    if (error) {
+      throw HttpError(404, "missing required name field");
+    }
+
+    const { name, email, tel, city } = await User.findByIdAndUpdate(
+      userId,
+      { ...req.body },
+      {
+        new: true,
+      }
+    );
+
+    res.status(201).json({ user: { name, email, tel, city } });
   } catch (error) {
     next(error);
   }
@@ -140,6 +168,7 @@ const userChangeFavorite = async (req, res, next) => {
 
 module.exports = {
   userRegister,
+  userUpdate,
   userLogin,
   userCurrent,
   userLogout,

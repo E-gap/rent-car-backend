@@ -1,5 +1,6 @@
 const {
   userRegister,
+  userUpdate,
   userLogin,
   userCurrent,
   userLogout,
@@ -18,6 +19,7 @@ const {
 
 module.exports = {
   userRegister,
+  userUpdate,
   userLogin,
   userCurrent,
   userLogout,

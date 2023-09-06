@@ -98,6 +98,14 @@ const loginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
 });
 
+const updateUserSchema = Joi.object({
+  name: Joi.string().required(),
+  /* password: Joi.string().min(6).required(), */
+  email: Joi.string().pattern(emailRegexp).required(),
+  city: Joi.string(),
+  tel: Joi.string(),
+});
+
 // схема mongoose для пользователей
 
 const userSchema = new Schema(
@@ -117,7 +125,8 @@ const userSchema = new Schema(
       required: [true, "Ema/* il is required"],
       unique: true,
     },
-
+    city: String,
+    tel: String,
     token: {
       type: String,
       default: "",
@@ -133,4 +142,5 @@ module.exports = {
   loginSchema,
   carSchema,
   addCarSchema,
+  updateUserSchema,
 };
