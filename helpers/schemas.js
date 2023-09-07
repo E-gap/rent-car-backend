@@ -5,10 +5,12 @@ const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // схемы Joi для car
 const addCarSchema = Joi.object({
+  mark: Joi.string().required(),
   model: Joi.string().required(),
   type: Joi.string().required(),
   transmission: Joi.string().required(),
   mileage: Joi.number().required(),
+  engine: Joi.number().required(),
   power: Joi.number().required(),
   tel: Joi.string().required(),
   year: Joi.number().required(),
@@ -24,6 +26,10 @@ const addCarSchema = Joi.object({
 // схема mongoose для cars
 const carSchema = new Schema(
   {
+    mark: {
+      type: String,
+      required: true,
+    },
     model: {
       type: String,
       required: true,
@@ -37,6 +43,10 @@ const carSchema = new Schema(
       required: true,
     },
     mileage: {
+      type: Number,
+      required: true,
+    },
+    engine: {
       type: Number,
       required: true,
     },
