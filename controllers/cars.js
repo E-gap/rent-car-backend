@@ -66,7 +66,7 @@ const getUserCars = async (req, res, next) => {
   const search = req.query;
 
   try {
-    const result = await Car.find({ owner, search })
+    const result = await Car.find({ owner, ...search })
       .sort("-date")
       .populate("owner", "name");
 
