@@ -3,23 +3,12 @@ const User = require("../models/user");
 const { HttpError, addCarSchema } = require("../helpers");
 
 const getAllCars = async (req, res, next) => {
-  console.log(req.query);
-  /* const {
-    mark,
-    model,
-    type,
-    year,
-    transmission,
-    fueltype,
-    mileage,
-    engine,
-    power,
-    color,
-    price,
-    city,
-  } = req.query; */
+  const search = req.query;
+
   try {
-    const result = await Car.find().sort("-date").populate("owner", "name");
+    const result = await Car.find(search)
+      .sort("-date")
+      .populate("owner", "name");
     res.status(200).json({
       data: result,
       status: "OK",
@@ -44,9 +33,12 @@ const getOneCar = async (req, res, next) => {
 
 const getFavoriteCars = async (req, res, next) => {
   const { _id: owner } = req.user;
+  const search = req.query;
 
   try {
-    const allCars = await Car.find().sort("-date").populate("owner", "name");
+    const allCars = await Car.find(search)
+      .sort("-date")
+      .populate("owner", "name");
     const { favorites } = await User.findById(owner);
 
     const favoritesByUser = allCars.filter((oneCar) => {
@@ -71,9 +63,10 @@ const getFavoriteCars = async (req, res, next) => {
 
 const getUserCars = async (req, res, next) => {
   const { _id: owner } = req.user;
+  const search = req.query;
 
   try {
-    const result = await Car.find({ owner: owner })
+    const result = await Car.find({ owner, search })
       .sort("-date")
       .populate("owner", "name");
 
