@@ -3,6 +3,21 @@ const User = require("../models/user");
 const { HttpError, addCarSchema } = require("../helpers");
 
 const getAllCars = async (req, res, next) => {
+  console.log(req.query);
+  /* const {
+    mark,
+    model,
+    type,
+    year,
+    transmission,
+    fueltype,
+    mileage,
+    engine,
+    power,
+    color,
+    price,
+    city,
+  } = req.query; */
   try {
     const result = await Car.find().sort("-date").populate("owner", "name");
     res.status(200).json({
