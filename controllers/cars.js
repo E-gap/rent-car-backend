@@ -4,15 +4,10 @@ const { HttpError, addCarSchema } = require("../helpers");
 
 const getAllCars = async (req, res, next) => {
   const search = req.query;
-
   const { page } = req.query;
-
   const limit = 2;
-
   const skip = (page - 1) * limit;
-
   const { sort } = req.query;
-
   const sortArray = sort && sort.split(" ");
 
   let sortRule;
@@ -135,6 +130,8 @@ const getUserCars = async (req, res, next) => {
   try {
     const resultAll = await Car.find({ owner, ...newSearch });
 
+    console.log(resultAll.length);
+
     const result = await Car.find(
       { owner, ...newSearch },
       "-createdAt -updatedAt",
@@ -145,6 +142,8 @@ const getUserCars = async (req, res, next) => {
     )
       .sort(sortRule && "-date")
       .populate("owner", "name");
+
+    console.log(result);
 
     res.status(200).json({
       data: result,
