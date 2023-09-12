@@ -5,13 +5,42 @@ const { HttpError, addCarSchema } = require("../helpers");
 const getAllCars = async (req, res, next) => {
   const search = req.query;
 
+  const { page } = req.query;
+
+  const limit = 2;
+
+  const skip = (page - 1) * limit;
+
+  const { sort } = req.query;
+
+  const sortArray = sort && sort.split(" ");
+
+  let sortRule;
+  if (sort && sortArray[1] === "down") {
+    sortRule = "-" + sortArray[0].toString();
+  } else if (sort && sortArray[1] === "up") {
+    sortRule = sortArray[0].toString();
+  }
+
+  const newSearch = { ...search };
+  delete newSearch.page;
+  delete newSearch.sort;
+  delete newSearch.limit;
+
   try {
-    const result = await Car.find(search)
-      .sort("-date")
+    const resultAll = await Car.find(newSearch);
+
+    const result = await Car.find(newSearch, "-createdAt -updatedAt", {
+      skip,
+      limit,
+    })
+      .sort(sortRule && "-date")
       .populate("owner", "name");
+
     res.status(200).json({
       data: result,
       status: "OK",
+      total: resultAll.length,
     });
   } catch (error) {
     next(error);
