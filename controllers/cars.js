@@ -63,14 +63,32 @@ const getOneCar = async (req, res, next) => {
 const getFavoriteCars = async (req, res, next) => {
   const { _id: owner } = req.user;
   const search = req.query;
+  const { page } = req.query;
+  const limit = 2;
+  const skip = (page - 1) * limit;
+  const { sort } = req.query;
+  const sortArray = sort && sort.split(" ");
+
+  let sortRule;
+  if (sort && sortArray[1] === "down") {
+    sortRule = "-" + sortArray[0].toString();
+  } else if (sort && sortArray[1] === "up") {
+    sortRule = sortArray[0].toString();
+  }
+
+  const newSearch = { ...search };
+  delete newSearch.page;
+  delete newSearch.sort;
+  delete newSearch.limit;
 
   try {
-    const allCars = await Car.find(search)
-      .sort("-date")
+    const allCars = await Car.find(newSearch)
+      .sort(sortRule && "-date")
       .populate("owner", "name");
+
     const { favorites } = await User.findById(owner);
 
-    const favoritesByUser = allCars.filter((oneCar) => {
+    const favoritesByUserAll = allCars.filter((oneCar) => {
       const isElement = favorites.find((favorite) => {
         return favorite === oneCar._id.toString();
       });
@@ -81,9 +99,12 @@ const getFavoriteCars = async (req, res, next) => {
       }
     });
 
+    const result = favoritesByUserAll.slice(skip, limit);
+
     res.status(200).json({
-      data: favoritesByUser,
+      data: result,
       status: "OK",
+      total: favoritesByUserAll.length,
     });
   } catch (error) {
     next(error);
@@ -93,15 +114,42 @@ const getFavoriteCars = async (req, res, next) => {
 const getUserCars = async (req, res, next) => {
   const { _id: owner } = req.user;
   const search = req.query;
+  const { page } = req.query;
+  const limit = 2;
+  const skip = (page - 1) * limit;
+  const { sort } = req.query;
+  const sortArray = sort && sort.split(" ");
+
+  let sortRule;
+  if (sort && sortArray[1] === "down") {
+    sortRule = "-" + sortArray[0].toString();
+  } else if (sort && sortArray[1] === "up") {
+    sortRule = sortArray[0].toString();
+  }
+
+  const newSearch = { ...search };
+  delete newSearch.page;
+  delete newSearch.sort;
+  delete newSearch.limit;
 
   try {
-    const result = await Car.find({ owner, ...search })
-      .sort("-date")
+    const resultAll = await Car.find({ owner, ...newSearch });
+
+    const result = await Car.find(
+      { owner, ...newSearch },
+      "-createdAt -updatedAt",
+      {
+        skip,
+        limit,
+      }
+    )
+      .sort(sortRule && "-date")
       .populate("owner", "name");
 
     res.status(200).json({
       data: result,
       status: "OK",
+      total: resultAll.length,
     });
   } catch (error) {
     next(error);
