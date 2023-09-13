@@ -94,7 +94,7 @@ const getFavoriteCars = async (req, res, next) => {
       }
     });
 
-    const result = favoritesByUserAll.slice(skip, limit);
+    const result = favoritesByUserAll.slice(skip, skip + limit);
 
     res.status(200).json({
       data: result,
@@ -142,8 +142,6 @@ const getUserCars = async (req, res, next) => {
     )
       .sort(sortRule && "-date")
       .populate("owner", "name");
-
-    console.log(result);
 
     res.status(200).json({
       data: result,
