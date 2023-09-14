@@ -130,8 +130,6 @@ const getUserCars = async (req, res, next) => {
   try {
     const resultAll = await Car.find({ owner, ...newSearch });
 
-    console.log(resultAll.length);
-
     const result = await Car.find(
       { owner, ...newSearch },
       "-createdAt -updatedAt",
@@ -194,6 +192,7 @@ const changeCar = async (req, res, next) => {
 const deleteCar = async (req, res, next) => {
   const { _id: user } = req.user;
   const { carId } = req.params;
+  console.log(carId);
 
   try {
     const car = await Car.findById(carId);
