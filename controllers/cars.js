@@ -10,7 +10,7 @@ const getAllCars = async (req, res, next) => {
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
 
-  let sortRule;
+  let sortRule = sort && "-date";
   if (sort && sortArray[1] === "down") {
     sortRule = "-" + sortArray[0].toString();
   } else if (sort && sortArray[1] === "up") {
@@ -23,14 +23,11 @@ const getAllCars = async (req, res, next) => {
   delete newSearch.limit;
 
   try {
-    const resultAll = await Car.find(newSearch);
-
-    const result = await Car.find(newSearch, "-createdAt -updatedAt", {
-      skip,
-      limit,
-    })
-      .sort(sortRule && "-date")
+    const resultAll = await Car.find(newSearch, "-createdAt -updatedAt")
+      .sort(sortRule)
       .populate("owner", "name");
+
+    const result = resultAll.slice(skip, skip + limit);
 
     res.status(200).json({
       data: result,
@@ -64,11 +61,13 @@ const getFavoriteCars = async (req, res, next) => {
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
 
-  let sortRule;
+  let sortRule = sort && "-date";
   if (sort && sortArray[1] === "down") {
     sortRule = "-" + sortArray[0].toString();
+    console.log(sortRule);
   } else if (sort && sortArray[1] === "up") {
     sortRule = sortArray[0].toString();
+    console.log(sortRule);
   }
 
   const newSearch = { ...search };
@@ -78,7 +77,7 @@ const getFavoriteCars = async (req, res, next) => {
 
   try {
     const allCars = await Car.find(newSearch)
-      .sort(sortRule && "-date")
+      .sort(sortRule)
       .populate("owner", "name");
 
     const { favorites } = await User.findById(owner);
@@ -115,7 +114,7 @@ const getUserCars = async (req, res, next) => {
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
 
-  let sortRule;
+  let sortRule = sort && "-date";
   if (sort && sortArray[1] === "down") {
     sortRule = "-" + sortArray[0].toString();
   } else if (sort && sortArray[1] === "up") {
@@ -128,18 +127,11 @@ const getUserCars = async (req, res, next) => {
   delete newSearch.limit;
 
   try {
-    const resultAll = await Car.find({ owner, ...newSearch });
-
-    const result = await Car.find(
-      { owner, ...newSearch },
-      "-createdAt -updatedAt",
-      {
-        skip,
-        limit,
-      }
-    )
-      .sort(sortRule && "-date")
+    const resultAll = await Car.find({ owner, ...newSearch })
+      .sort(sortRule)
       .populate("owner", "name");
+
+    const result = resultAll.slice(skip, skip + limit);
 
     res.status(200).json({
       data: result,
