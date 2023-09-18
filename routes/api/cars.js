@@ -2,7 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers");
 
-const { authenticate } = require("../../middlewares");
+const { authenticate, cloudinary } = require("../../middlewares");
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.get("/favorite", authenticate, ctrl.getFavoriteCars);
 
 router.get("/user", authenticate, ctrl.getUserCars);
 
-router.post("/", authenticate, ctrl.addCar);
+router.post("/", authenticate, cloudinary.single("photo"), ctrl.addCar);
 
 router.patch("/:carId", authenticate, ctrl.changeCar);
 
