@@ -4,7 +4,7 @@ require("dotenv").config();
 const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // схемы Joi для car
-const addCarSchema = Joi.object({
+/* const addCarSchema = Joi.object({
   mark: Joi.string().required(),
   model: Joi.string().required(),
   type: Joi.string().required(),
@@ -21,10 +21,30 @@ const addCarSchema = Joi.object({
   price: Joi.number().required(),
   date: Joi.number(),
   description: Joi.any(),
+}); */
+
+const addCarSchema = Joi.object({
+  mark: Joi.string(),
+  model: Joi.string(),
+  type: Joi.string(),
+  transmission: Joi.string(),
+  mileage: Joi.number(),
+  engine: Joi.number(),
+  photo: Joi.string(),
+  power: Joi.number(),
+  tel: Joi.string(),
+  year: Joi.number(),
+  color: Joi.string(),
+  fueltype: Joi.string(),
+  city: Joi.string(),
+  email: Joi.string(),
+  price: Joi.number(),
+  date: Joi.number(),
+  description: Joi.any(),
 });
 
 // схема mongoose для cars
-const carSchema = new Schema(
+/* const carSchema = new Schema(
   {
     mark: {
       type: String,
@@ -91,6 +111,82 @@ const carSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
       required: true,
+    },
+  },
+  { versionKey: false, timestamps: true }
+); */
+
+const carSchema = new Schema(
+  {
+    mark: {
+      type: String,
+      required: false,
+    },
+    model: {
+      type: String,
+      required: false,
+    },
+    type: {
+      type: String,
+      required: false,
+    },
+    transmission: {
+      type: String,
+      required: false,
+    },
+    mileage: {
+      type: Number,
+      required: false,
+    },
+    engine: {
+      type: Number,
+      required: false,
+    },
+    power: {
+      type: Number,
+      required: false,
+    },
+    tel: {
+      type: String,
+      required: false,
+    },
+    year: {
+      type: Number,
+      required: false,
+    },
+    color: {
+      type: String,
+      required: false,
+    },
+    fueltype: {
+      type: String,
+      required: false,
+    },
+    city: {
+      type: String,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: false,
+    },
+    price: {
+      type: Number,
+      required: false,
+    },
+    description: String,
+    date: {
+      type: Number,
+      required: false,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: false,
+    },
+    photo: {
+      type: String,
+      required: false,
     },
   },
   { versionKey: false, timestamps: true }

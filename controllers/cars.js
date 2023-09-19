@@ -145,13 +145,17 @@ const getUserCars = async (req, res, next) => {
 
 const addCar = async (req, res, next) => {
   const { _id: owner } = req.user;
+  const carData = req.body;
+  const data = req.file
+    ? { photo: req.file.path, owner, ...carData }
+    : { owner, ...carData };
 
   try {
     const { error } = addCarSchema.validate(req.body);
     if (error) {
       throw HttpError(404, "missing required name field");
     }
-    const result = await Car.create({ ...req.body, owner });
+    const result = await Car.create(data);
     res.status(201).json({ data: result });
   } catch (error) {
     next(error);
