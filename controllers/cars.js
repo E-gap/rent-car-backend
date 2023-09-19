@@ -146,6 +146,7 @@ const getUserCars = async (req, res, next) => {
 const addCar = async (req, res, next) => {
   const { _id: owner } = req.user;
   const carData = req.body;
+  console.log(req.file);
   const data = req.file
     ? { photo: req.file.path, owner, ...carData }
     : { owner, ...carData };

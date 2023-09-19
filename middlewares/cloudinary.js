@@ -12,6 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "cars",
+
     allowedFormats: ["jpg", "png"],
     public_id: (req, file) => {
       return file.originalname + Date.now();
