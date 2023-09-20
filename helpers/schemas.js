@@ -4,13 +4,14 @@ require("dotenv").config();
 const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // схемы Joi для car
-/* const addCarSchema = Joi.object({
+const addCarSchema = Joi.object({
   mark: Joi.string().required(),
   model: Joi.string().required(),
   type: Joi.string().required(),
   transmission: Joi.string().required(),
   mileage: Joi.number().required(),
   engine: Joi.number().required(),
+  photo: Joi.string(),
   power: Joi.number().required(),
   tel: Joi.string().required(),
   year: Joi.number().required(),
@@ -21,100 +22,9 @@ const emailRegexp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   price: Joi.number().required(),
   date: Joi.number(),
   description: Joi.any(),
-}); */
-
-const addCarSchema = Joi.object({
-  mark: Joi.string(),
-  model: Joi.string(),
-  type: Joi.string(),
-  transmission: Joi.string(),
-  mileage: Joi.number(),
-  engine: Joi.number(),
-  photo: Joi.string(),
-  power: Joi.number(),
-  tel: Joi.string(),
-  year: Joi.number(),
-  color: Joi.string(),
-  fueltype: Joi.string(),
-  city: Joi.string(),
-  email: Joi.string(),
-  price: Joi.number(),
-  date: Joi.number(),
-  description: Joi.any(),
 });
 
 // схема mongoose для cars
-/* const carSchema = new Schema(
-  {
-    mark: {
-      type: String,
-      required: true,
-    },
-    model: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    transmission: {
-      type: String,
-      required: true,
-    },
-    mileage: {
-      type: Number,
-      required: true,
-    },
-    engine: {
-      type: Number,
-      required: true,
-    },
-    power: {
-      type: Number,
-      required: true,
-    },
-    tel: {
-      type: String,
-      required: true,
-    },
-    year: {
-      type: Number,
-      required: true,
-    },
-    color: {
-      type: String,
-      required: true,
-    },
-    fueltype: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    description: String,
-    date: {
-      type: Number,
-      required: true,
-    },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
-    },
-  },
-  { versionKey: false, timestamps: true }
-); */
 
 const carSchema = new Schema(
   {
