@@ -90,6 +90,7 @@ const userLogin = async (req, res, next) => {
       );
     }
     const userExist = await User.findOne({ email });
+
     if (!userExist) {
       throw HttpError(401, "Email or password is wrong");
     }
