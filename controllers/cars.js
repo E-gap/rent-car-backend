@@ -145,11 +145,9 @@ const getUserCars = async (req, res, next) => {
 
 const addCar = async (req, res, next) => {
   const { _id: owner } = req.user;
-  const carData = req.body;
-  console.log(req.file);
   const data = req.file
-    ? { photo: req.file.path, owner, ...carData }
-    : { owner, ...carData };
+    ? { photo: req.file.path, owner, ...req.body }
+    : { owner, ...req.body };
 
   try {
     const { error } = addCarSchema.validate(req.body);
@@ -165,16 +163,20 @@ const addCar = async (req, res, next) => {
 
 const changeCar = async (req, res, next) => {
   const { carId } = req.params;
+  const data = req.file
+    ? { photo: req.file.path, ...req.body }
+    : { ...req.body };
 
   try {
     const { error } = addCarSchema.validate(req.body);
+
     if (error) {
       throw HttpError(404, "missing required name field");
     }
 
     const result = await Car.findByIdAndUpdate(
       carId,
-      { ...req.body },
+      { ...data },
       {
         new: true,
       }

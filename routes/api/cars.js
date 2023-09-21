@@ -14,7 +14,12 @@ router.get("/user", authenticate, ctrl.getUserCars);
 
 router.post("/", authenticate, cloudinary.single("photo"), ctrl.addCar);
 
-router.patch("/:carId", authenticate, ctrl.changeCar);
+router.patch(
+  "/:carId",
+  authenticate,
+  cloudinary.single("photo"),
+  ctrl.changeCar
+);
 
 router.delete("/:carId", authenticate, ctrl.deleteCar);
 
