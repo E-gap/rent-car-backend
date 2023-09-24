@@ -2,10 +2,11 @@ const Car = require("../models/car");
 const User = require("../models/user");
 const { HttpError, addCarSchema } = require("../helpers");
 
+const limit = 10;
+
 const getAllCars = async (req, res, next) => {
   const search = req.query;
   const { page } = req.query;
-  const limit = 2;
   const skip = (page - 1) * limit;
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
@@ -56,7 +57,6 @@ const getFavoriteCars = async (req, res, next) => {
   const { _id: owner } = req.user;
   const search = req.query;
   const { page } = req.query;
-  const limit = 2;
   const skip = (page - 1) * limit;
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
@@ -109,7 +109,6 @@ const getUserCars = async (req, res, next) => {
   const { _id: owner } = req.user;
   const search = req.query;
   const { page } = req.query;
-  const limit = 2;
   const skip = (page - 1) * limit;
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
