@@ -128,6 +128,7 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
+      default: "User",
       required: [true, "User's name is required"],
     },
     password: {
