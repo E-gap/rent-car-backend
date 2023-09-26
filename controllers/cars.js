@@ -11,7 +11,7 @@ const getAllCars = async (req, res, next) => {
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
 
-  let sortRule = sort && "-date";
+  let sortRule = sort || "-date";
   if (sort && sortArray[1] === "down") {
     sortRule = "-" + sortArray[0].toString();
   } else if (sort && sortArray[1] === "up") {
@@ -61,13 +61,11 @@ const getFavoriteCars = async (req, res, next) => {
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
 
-  let sortRule = sort && "-date";
+  let sortRule = sort || "-date";
   if (sort && sortArray[1] === "down") {
     sortRule = "-" + sortArray[0].toString();
-    console.log(sortRule);
   } else if (sort && sortArray[1] === "up") {
     sortRule = sortArray[0].toString();
-    console.log(sortRule);
   }
 
   const newSearch = { ...search };
@@ -113,7 +111,7 @@ const getUserCars = async (req, res, next) => {
   const { sort } = req.query;
   const sortArray = sort && sort.split(" ");
 
-  let sortRule = sort && "-date";
+  let sortRule = sort || "-date";
   if (sort && sortArray[1] === "down") {
     sortRule = "-" + sortArray[0].toString();
   } else if (sort && sortArray[1] === "up") {
@@ -190,7 +188,6 @@ const changeCar = async (req, res, next) => {
 const deleteCar = async (req, res, next) => {
   const { _id: user } = req.user;
   const { carId } = req.params;
-  console.log(carId);
 
   try {
     const car = await Car.findById(carId);
