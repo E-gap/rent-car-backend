@@ -5,6 +5,7 @@ require("dotenv").config();
 const { SECRET_KEY } = process.env;
 
 const User = require("../models/user");
+const Car = require("../models/car");
 
 const {
   HttpError,
@@ -105,9 +106,20 @@ const userLogin = async (req, res, next) => {
     });
     await User.findByIdAndUpdate(userExist._id, { token });
 
+    const allCars = await Car.find();
+    const allCarsId = allCars.map((item) => item._id.toString());
+
+    const correctFavorites = userExist.favorites.filter((item) =>
+      allCarsId.includes(item)
+    );
+
+    await User.findByIdAndUpdate(userExist._id, {
+      favorites: correctFavorites,
+    });
+
     res.json({
       token,
-      favorites: userExist.favorites,
+      favorites: correctFavorites,
       user: {
         email: userExist.email,
         name: userExist.name,
@@ -120,12 +132,21 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-const userCurrent = (req, res, next) => {
+const userCurrent = async (req, res, next) => {
   const { email, name, favorites, _id } = req.user;
+
+  const allCars = await Car.find();
+  const allCarsId = allCars.map((item) => item._id.toString());
+
+  const correctFavorites = favorites.filter((item) => allCarsId.includes(item));
+
+  await User.findByIdAndUpdate(_id, {
+    favorites: correctFavorites,
+  });
 
   res.status(200).json({
     user: { email, name },
-    favorites,
+    favorites: correctFavorites,
     userId: _id,
   });
 };
